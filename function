@@ -1,3 +1,22 @@
 # is.outlier
-function for remove outlier in vector
+# function for remove outlier in vector
+
+# allows remoove outlier
+is_outlier <- function(x,rm_outlier=FALSE) {
+  if(rm_outlier == F){
+    ##boxplot outliers
+    isOutlier = (x < quantile(x, 0.25,na.rm = T) - 2.5 * IQR(x,na.rm = T) | x > quantile(x, 0.75,na.rm=T) + 2.5 * IQR(x,na.rm = T))
+    ##outliers perso
+    # isOutlier = (x < mean(x,na.rm=T)-3*sd(x,na.rm=T) | x > mean(x,na.rm=T)+3*sd(x,na.rm=T))
+    return(list(is_outiler=isOutlier))
+  }
+  if(rm_outlier == T){
+    ##boxplot outliers
+    isOutlier = (x < quantile(x, 0.25,na.rm = T) - 2.5 * IQR(x,na.rm = T) | x > quantile(x, 0.75,na.rm=T) + 2.5 * IQR(x,na.rm = T))
+    ##outliers perso
+    # isOutlier = (x < mean(x,na.rm=T)-3*sd(x,na.rm=T) | x > mean(x,na.rm=T)+3*sd(x,na.rm=T))
+    x2 <- x[isOutlier==F]
+    return(list(x_input=x, is_outlier=isOutlier,nobs_input=length(x),x_output=x2 ))
+  }
+}
 
